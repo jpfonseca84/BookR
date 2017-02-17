@@ -1,0 +1,7 @@
+person age sex funny age.mon
+Peter * M High 504
+Lois 40 F * 480
+Meg 17 F Low 204
+Chris 14 M Med 168
+Stewie 1 M High *
+Brian * M Med *
