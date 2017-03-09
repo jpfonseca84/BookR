@@ -24,7 +24,7 @@ summary(galfit.4)
 #Increasing the number of powers in the linear regression, we see that we have 
 #an improovment in the prediction model, The model get to answer 99.99% of the
 #response variable. altough, the new variables tend to loose statistical 
-#relevance
+#relevance. For that, we would use the galfit.3
 
 #c ------------------------------
 
