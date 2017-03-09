@@ -5,7 +5,6 @@
 
 ##########
 ## 17.1 ####
-##########
 xbar <- 41.1
 #(a)
 se <- 11.3/sqrt(6)
@@ -37,9 +36,7 @@ pt((30-37.8)/se,df=62)
 ##(iii)
 pt((40-37.8)/se,df=62)-0.5
 
-##########
 ## 17.2 ######
-##########
 x.bar <- 14.22
 sigma <- 2.9
 
@@ -93,9 +90,7 @@ for(i in 2:100){
 }
 abline(v=mu,col=2)
 
-##########
 ## 18.1 ####
-##########
 #(a)
 ### H0: mu = 3.5; HA: mu != 3.5 (two-sided test)
 tstat <- (3.97-3.5)/(2.21/sqrt(73))
@@ -112,9 +107,7 @@ t.test(quakes$mag,mu=4.3,alternative="greater",conf.level=0.99)
 #(c)
 mean(quakes$mag)+c(-1,1)*qt(0.995,df=999)*sd(quakes$mag)/sqrt(1000)
 
-##########
 ## 18.2 ####
-##########
 #(a)
 library("MASS")
 ?anorexia
@@ -202,9 +195,7 @@ rate.before <- c(52,66,89,87,89,72,66,65,49,62,70,52,75,63,65,61)
 rate.after <- c(51,66,71,73,70,68,60,51,40,57,65,53,64,56,60,59) 
 myt.test(x=rate.after,y=rate.before,alternative="less",paired=TRUE,conf.level=0.95)
 
-##########
 ## 18.3 ######
-##########
 #(a)
 # H0: p=0.9; HA: p<0.9
 n <- 89
@@ -299,9 +290,7 @@ Z.test(p.hat2,n2,p.hat1,n1,p0=0,alternative="greater",conf.level=0.95) # ...or y
 #(h)
 Z.test(p1=0.11,n1=10,p0=0.1)
 
-##########
 ## 18.4 ####
-##########
 #(a) H0: No relationship between hair and eye color; HA: There is a relationship.
 ?HairEyeColor
 chisq.test(x=HairEyeColor[,,1]+HairEyeColor[,,2])
@@ -317,9 +306,7 @@ chisq.test(jobtype.tab)
 ##(i) With a significance level of 0.05 and a p-value of 0.015, there is weak evidence to reject H0 and we therefore conclude that the three job types do not appear to be unifomly represented in the data set.
 ##(ii) With a significance level of 0.01 and a P-value of 0.015, there is no evidence to reject H0 and we therefore conclude that the three job types appear to be unifomly represented in the data set. 
 
-##########
 ## 18.5 ####
-##########
 #(a)
 typeI.mean <- function(mu0,sigma,n,alpha,test="two.sided",ITERATIONS=10000){
   tstats <- rep(NA,ITERATIONS)
@@ -379,9 +366,7 @@ typeII.mean(mu0=8994,muA=5600,sigma=3888,n=9,alpha=0.01,test="less")
 ##(iii)
 typeII.mean(mu0=0.44,muA=0.4,sigma=2.4,n=68,alpha=0.05,test="greater")
 
-##########
 ## 18.6 ####
-##########
 #(a)
 power.mean <- function(nvec,...){
   nlen <- length(nvec)
@@ -413,9 +398,7 @@ abline(h=0.8,lty=2)
 abline(v=c(minimum.n,minimum.n2),lty=3,col=c("black","grey"))
 legend("bottomright",legend=c("alpha=0.05","alpha=0.01"),col=c("black","grey"),pch=1)
 
-##########
 ## 19.1 ####
-##########
 mim <- c(93,120,65,105,115,82,99,87,100,90,78,95,93,88,110,85,45,80,28,
          75,70,65,55,50,40,100,75,65,40,73,65,50,30,45,50,45,55,96,58,
          95,90,65,80,85,95,82)
@@ -462,9 +445,7 @@ summary(aov(Sepal.Length ~ Species, data = iris))
 summary(aov(Sepal.Width ~ Species, data = iris))
 # Both p-values are very small. Strong evidence to reject H0 and conclude that the mean sepal lengths and widths do vary according to species.
 
-##########
 ## 19.2 ####
-##########
 #(a)
 depth.fac <- cut(quakes$depth,breaks=c(0,200,400,680))
 table(depth.fac)
@@ -502,9 +483,7 @@ interaction.plot(x.factor=cars.means[,1],
 #(f)
 summary(aov(Length~AirBags+Man.trans.avail+AirBags:Man.trans.avail,data=Cars93)) # No formal statistical evidence of an interactive effect. Strong evidence of main effects, however -- both 'Airbags' and 'Man.trans.avail' appear to be related to car length.
 
-##########
 ## 20.1 ####
-##########
 library("MASS")
 survfit <- lm(Height~Wr.Hnd,data=survey)
 #(a)
@@ -549,9 +528,7 @@ summary(carfit) # mean MPG = 37.28 - 5.34*weight # For each extra 1000lbs of wei
 #(g)
 predict(carfit,newdata=data.frame(wt=6),interval="prediction",level=0.95) # Predicting at 6000lbs seems untrustworthy. Extrapolation is far enough outside the range of the observed data such that the associated PI has a lower limit that is negative, which makes no sense in terms of the response variable of MPG.
 
-##########
 ## 20.2 ####
-##########
 library("MASS")
 #(a)
 table(survey$Exer)
@@ -624,9 +601,7 @@ abline(carfit,lwd=2) # The plot indicates clearly that the difference between
 #of realistically capturing the effect of changing categories in 'gear' on 
 #'qsec'.
 
-##########
-## 21.1 ##
-##########
+## 21.1 ####
 library("MASS")
 ?cats
 #(a)
@@ -697,9 +672,7 @@ summary(murd.fit2)$r.squared
 #(l)
 predict(murd.fit2,newdata=data.frame(Police=c(300,300),Guns=c(500,0)),interval="confidence",level=0.99)
 
-##########
-## 21.2 ##
-##########
+## 21.2 ####
 #(a)
 gal <- data.frame(d=c(573,534,495,451,395,337,253),h=c(1,0.8,0.6,0.45,0.3,0.2,0.1))
 plot(gal$d~gal$h,pch=19,xlab="Initial height",ylab="Distance traveled")
@@ -752,56 +725,110 @@ car.fit <- lm(I(1/mpg)~wt+hp+disp,data=mtcars)
 summary(car.fit)
 # Both fits to the mtcars data here provide similar levels of significance for the three predictors; though there is a mild yet noticeable improvement in the coefficient of determination for the latter model based on a response of GPM = 1/MPG.
 
-##########
-## 21.3 ##
-##########
+## 21.3 ####
 library("MASS")
 #(a)
 cat.fit <- lm(Hwt~Bwt*Sex,data=cats)
 summary(cat.fit)
-# The main-effects-only version of the model had a mild negative effect of "sex male", and it was not significant. In this version, the effect of being male is more extreme, and the p-value is far smaller, now providing weak evidence of significance. The interactive term for the slope of 'Bwt' for a male is reduced somewhat compared to females (estimated parameter is negative).
+# The main-effects-only version of the model had a mild negative effect 
+#of "sex male", and it was not significant. In this version, the effect
+#of being male is more extreme, and the p-value is far smaller, 
+#now providing weak evidence of significance. The interactive term for
+#the slope of 'Bwt' for a male is reduced somewhat compared to females 
+#(estimated parameter is negative).
+
 #(b)
-plot(cats$Bwt,cats$Hwt,col=cats$Sex,ylab="Heart weight (g)",xlab="Body weight (kg)")
-legend("topleft",legend=c("Female","Male"),col=1:2,pch=1)
+plot(cats$Bwt,
+     cats$Hwt,
+     col=cats$Sex,
+     ylab="Heart weight (g)",
+     xlab="Body weight (kg)")
+legend("topleft",
+       legend=c("Female","Male"),
+       col=1:2,pch=1)
 cat.coefs <- coef(cat.fit)
 abline(coef=cat.coefs[1:2])
 abline(coef=c(sum(cat.coefs[c(1,3)]),sum(cat.coefs[c(2,4)])),col=2)
-# Lines of the fitted model are no longer parallel; the effect of the weakly significant interaction is apparent.
+# Lines of the fitted model are no longer parallel; 
+#the effect of the weakly significant interaction is apparent.
+
 #(c)
-predict(cat.fit,newdata=data.frame(Bwt=3.4,Sex="F"),interval="prediction",level=0.95)
-# Sigma's heart weight predicted from the new model is around 1.5 grams lighter than predicted from the main-effects-only model in the earlier exercise. The prediction interval is set accordingly lower as well, but is also wider than the interval from earlier.
+predict(cat.fit,
+        newdata=data.frame(Bwt=3.4,
+                           Sex="F"),
+        interval="prediction",
+        level=0.95)
+# Sigma's heart weight predicted from the new model is around 1.5 
+#grams lighter than predicted from the main-effects-only model in the 
+#earlier exercise. The prediction interval is set accordingly lower as
+#well, but is also wider than the interval from earlier.
+
 #(d)
 library("faraway")
 tree.fit1 <- lm(Volume~Girth+Height,data=trees)
 summary(tree.fit1)
 tree.fit2 <- lm(Volume~Girth*Height,data=trees)
 summary(tree.fit2)
+
 #(e)
 tree.fit3 <- lm(log(Volume)~log(Girth)+log(Height),data=trees)
 summary(tree.fit3)
 tree.fit4 <- lm(log(Volume)~log(Girth)*log(Height),data=trees)
 summary(tree.fit4)
-# The interactive effect is highly significant in the untransformed model from (d), but completely non-significant after log-transformation of all present variables. This suggests that 'straight-line' relationships are not the best way to model these data (you can experiment with plots if you wish), and that we must account for curvature in the response surface by either working with transformed data or including the two-way interaction between the two untransformed continuous predictors. Once more, it is difficult to decide on which approach ought to be preferred -- we need to know more about the nature of the data themselves in context, as well as the ultimate purpose of the fitted model.
+# The interactive effect is highly significant in the untransformed 
+#'model from (d), but completely non-significant after 
+#'log-transformation of all present variables. This suggests that 
+#'straight-line' relationships are not the best way to model these 
+#'data (you can experiment with plots if you wish), and that we must 
+#'account for curvature in the response surface by either working 
+#'with transformed data or including the two-way interaction between 
+#'the two untransformed continuous predictors. Once more, it is 
+#'difficult to decide on which approach ought to be preferred -- 
+#'we need to know more about the nature of the data themselves in 
+#'context, as well as the ultimate purpose of the fitted model.
+
 #(f)
 car.fit <- lm(mpg~factor(cyl)*hp+wt,data=mtcars)
 summary(car.fit)
 #(g)
 coef(car.fit)
-# The interactive effect is between a continuous (hp) and a categorical (factor(cyl)) predictor. As such, each of the two estimated coefficents can be interpreted as the change in the slope of hp for each of the non-reference levels of factor(cyl).
-coef(car.fit)[4] # When the car has 4 cylinders (reference level), the slope for hp is -0.0995 (to 4 decimal places)
-coef(car.fit)[4] + coef(car.fit)[6] # When the car has 6 cylinders, the slope for hp is -0.0995 + 0.0781 = -0.0214 (to 4 decimal places)
-coef(car.fit)[4] + coef(car.fit)[7] # When the car has 8 cylinders, the slope for hp is -0.0995 + 0.0860 = -0.0135 (to 4 decimal places)
-# This model suggests that as hp increases, mean MPG decreases (for a fixed wt). However, in comparison to 4-cylinder cars, mean MPG is estimated to decrease at a slower rate with an increasing hp for both 6- and 8-cylinder cars (since the positive additive terms to the baseline slope of -0.0995 still provide negative slopes in hp, but ones that are closer to zero).
+# The interactive effect is between a continuous (hp) and a 
+#'categorical (factor(cyl)) predictor. As such, each of the two 
+#'estimated coefficents can be interpreted as the change in the slope 
+#'of hp for each of the non-reference levels of factor(cyl).
+
+coef(car.fit)[4] # When the car has 4 cylinders (reference level), 
+#'the slope for hp is -0.0995 (to 4 decimal places)
+coef(car.fit)[4] + coef(car.fit)[6] # When the car has 6 cylinders, 
+#the slope for hp is -0.0995 + 0.0781 = -0.0214 (to 4 decimal places)
+coef(car.fit)[4] + coef(car.fit)[7] # When the car has 8 cylinders, 
+#the slope for hp is -0.0995 + 0.0860 = -0.0135 (to 4 decimal places)
+
+#This model suggests that as hp increases, mean MPG decreases (for a fixed wt). However, in comparison to 4-cylinder cars, mean MPG is estimated to decrease at a slower rate with an increasing hp for both 6- and 8-cylinder cars (since the positive additive terms to the baseline slope of -0.0995 still provide negative slopes in hp, but ones that are closer to zero).
+
 #(h)
 ##(i)
-predict(car.fit,newdata=data.frame(wt=c(2.1,3.9,2.9),hp=c(100,210,200),cyl=c(4,8,6)),interval="confidence",level=0.95)
-# The first car is the only car that has a point estimate of mean MPG that is higher than your mother's demand of 25, so this would be the initial choice.
-##(ii)
-# Although the point estimate for Car 3 is much less than 25, looking at the confidence intervals you can see that the interval for Car 3 includes 25. So, you could argue to your mother that you're 95% confident that the true mean MPG of a car like Car 3 lies somewhere in that interval; in particular, your model suggests no evidence against the hypothesis that the true mean MPG of such a car is equal to 25. Of course, the interval also includes possible true values that are far worse than 25... but you don't need to tell your mother that.
+predict(car.fit,
+        newdata=data.frame(wt=c(2.1,3.9,2.9),
+                           hp=c(100,210,200),
+                           cyl=c(4,8,6)),
+        interval="confidence",
+        level=0.95)
+# The first car is the only car that has a point estimate of mean MPG 
+#'that is higher than your mother's demand of 25, so this would be the
+#' initial choice.
 
-##########
-## 22.1 ##
-##########
+##(ii)
+# Although the point estimate for Car 3 is much less than 25, looking 
+#'at the confidence intervals you can see that the interval for Car 3 
+#'includes 25. So, you could argue to your mother that you're 95% 
+#'confident that the true mean MPG of a car like Car 3 lies somewhere 
+#'in that interval; in particular, your model suggests no evidence 
+#'against the hypothesis that the true mean MPG of such a car is equal 
+#'to 25. Of course, the interval also includes possible true values that
+#'are far worse than 25... but you don't need to tell your mother that.
+
+## 22.1 ####
 #(a)
 library("boot")
 nuc.null <- lm(cost~1,data=nuclear)
@@ -846,9 +873,7 @@ car.step <- step(car.null,scope=.~.+wt*hp*factor(cyl)*disp+am+factor(gear)+drat+
 summary(car.step)
 # Modeling the response as GPM instead of MPG, step-wise AIC selection offers up a far simpler model, with main effects for 'wt' and 'hp' only. It would seem that this transformation of the response greatly simplifies the relationships in the data.
 
-##########
-## 22.2 ##
-##########
+## 22.2 ####
 #(a)
 library("boot")
 nuc.fit <- lm(cost~date+cap+pt+ne,data=nuclear)
