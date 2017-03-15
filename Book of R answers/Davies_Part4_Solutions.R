@@ -968,25 +968,38 @@ legend("topleft",legend=levels(diamonds$Cert),col=1:length(levels(diamonds$Cert)
 sparkly.fit <- lm(Price~Carat+Color+Clarity+Cert,data=diamonds)
 summary(sparkly.fit)
 plot(sparkly.fit,which=1)
+# There seems to be clear, systematic non-linearity in the estimated 
+#residuals. This violates the linearity assumption of the trends in 
+#our data, and suggests our current model is inadequate in terms of 
+#representation of the data at hand. Based on the plots from (i), 
+#should we try modeling a log-transformation of the response?
 plot(sparkly.fit,which=2)
+# Normality is also affected---there is rather obvious deviation, 
+#from the distribution, particularly in the upper tail.
 plot(sparkly.fit,which=3)
-# There seems to be clear, systematic non-linearity in the estimated residuals. This violates the linearity assumption of the trends in our data, and suggests our current model is inadequate in terms of representation of the data at hand. Based on the plots from (i), should we try modeling a log-transformation of the response?
-# Normality is also affected---there is rather obvious deviation, from the distribution, particularly in the upper tail.
-# Barring three extreme points, though, plots 1 and 3 don't show that the assumptions of homoscedasticity is violated---the variability of the residuals remains more or less constant.
+# Barring three extreme points, though, plots 1 and 3 don't show that 
+#the assumptions of homoscedasticity is violated---the variability of 
+#the residuals remains more or less constant.
+
 #(k)
 sparkly.fit2 <- lm(log(Price)~Carat+Color+Clarity+Cert,data=diamonds)
 summary(sparkly.fit2)
 plot(sparkly.fit2,which=1)
 plot(sparkly.fit2,which=2)
 plot(sparkly.fit2,which=3)
-# Log-transformation of Price has done nothing to curb the clear, systematic, non-linear appearance of the residuals. A non-linear trend still appears very promenent.
-# However, the log-transformation has reigned in the extreme points and the severity of the non-normality to a certain extent.
+# Log-transformation of Price has done nothing to curb the clear, 
+#systematic, non-linear appearance of the residuals. A non-linear 
+#trend still appears very promenent.
+# However, the log-transformation has reigned in the extreme points 
+# and the severity of the non-normality to a certain extent.
 #(l)
 sparkly.fit3 <- lm(log(Price)~Carat+I(Carat^2)+Color+Clarity+Cert,data=diamonds)
 summary(sparkly.fit3)
 plot(sparkly.fit3,which=1)
 plot(sparkly.fit3,which=2)
 plot(sparkly.fit3,which=3)
-# Including an order 2 polynomial term in Carat has eliminated much of the concern of the non-linear curvature.
-# Normality is more apparent now, and there's little if any concern of heteroscedasticity.
+# - Including an order 2 polynomial term in Carat has eliminated much 
+#of the concern of the non-linear curvature.
+# - Normality is more apparent now, and there's little if any concern
+#of heteroscedasticity.
 # This third model is by far the most appropriate of the three (with respect to the residual diagnostics) when it comes to modeling the cost of diamonds in light of the available data.
