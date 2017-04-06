@@ -119,41 +119,120 @@ library("ggplot2")
 cereal <- UScereal
 new.mfr <- as.numeric(UScereal$mfr)
 new.mfr[new.mfr>2] <- 3
-cereal$mfr <- factor(new.mfr,labels=c("General Mills","Kelloggs","Other"))
+cereal$mfr <- factor(new.mfr,
+                     labels=c("General Mills",
+                              "Kelloggs",
+                              "Other"))
 cereal$shelf <- factor(cereal$shelf)
 #(b)
 ##(i)
-gg1 <- ggplot(cereal,aes(x=protein,y=calories,col=shelf)) + geom_point(aes(shape=mfr)) + geom_smooth(method="lm") + labs(x="Protein",y="Calories",col="Shelf",size="Carbs",shape="Manufacturer")
+gg1 <- ggplot(cereal,
+              aes(x=protein,
+                  y=calories,
+                  col=shelf)) + 
+      geom_point(aes(shape=mfr)) + 
+      geom_smooth(method="lm") + 
+      labs(x="Protein",
+           y="Calories",
+           col="Shelf",
+           size="Carbs",
+           shape="Manufacturer")
 gg1
 ##(ii)
-gg2 <- ggplot(cereal,aes(x=calories,fill=shelf)) + geom_density(alpha=0.5) + labs(x="Calories",y="Kernel estimate",fill="Shelf")
+gg2 <- ggplot(cereal,
+              aes(x=calories,
+                  fill=shelf)) + 
+      geom_density(alpha=0.5) + 
+      labs(x="Calories",
+           y="Kernel estimate",
+           fill="Shelf")
 gg2
 #(c)
 library("gridExtra")
 grid.arrange(gg1,gg2)
 #(d)
-ggplot(cereal,aes(x=protein,y=calories)) + geom_point(aes(col=sugars,size=sodium,shape=shelf)) + geom_smooth(method="loess",span=0.9) + facet_wrap(~mfr) + labs(x="Protein",y="Calories",col="Sugars",shape="Shelf",size="Sodium")
+ggplot(cereal,
+       aes(x=protein,
+           y=calories)) + 
+      geom_point(aes(col=sugars
+                     ,size=sodium,
+                     shape=shelf)) + 
+      geom_smooth(method="loess",
+                  span=0.9) + 
+      facet_wrap(~mfr) + 
+      labs(x="Protein",
+           y="Calories",
+           col="Sugars",
+           shape="Shelf",
+           size="Sodium")
 #(e)
 library("car")
-gg1 <- ggplot(Salaries,aes(x=yrs.service,y=salary,col=sex)) + geom_point() + geom_smooth(method="loess") + labs(x="Years of Service",y="Salary",col="Sex")
+gg1 <- ggplot(Salaries,
+              aes(x=yrs.service,
+                  y=salary,
+                  col=sex)) + 
+      geom_point() + 
+      geom_smooth(method="loess") + 
+      labs(x="Years of Service",
+           y="Salary",
+           col="Sex")
 gg1
 #(f)
 ##(i)
-gg2 <- ggplot(Salaries,aes(x=rank,y=salary,col=sex)) + geom_boxplot() + labs(x="Rank",y="Salary",col="Sex")
+gg2 <- ggplot(Salaries,
+              aes(x=rank,
+                  y=salary,
+                  col=sex)) + 
+      geom_boxplot() + 
+      labs(x="Rank",
+           y="Salary",
+           col="Sex")
 gg2
 ##(ii)
-gg3 <- ggplot(Salaries,aes(x=discipline,y=salary,fill=sex)) + geom_boxplot() + labs(x="Discipline",y="Salary",fill="Sex")
+gg3 <- ggplot(Salaries,
+              aes(x=discipline,
+                  y=salary,
+                  fill=sex)) + 
+      geom_boxplot() + 
+      labs(x="Discipline",
+           y="Salary",
+           fill="Sex")
 gg3
 ##(iii)
-gg4 <- ggplot(Salaries,aes(x=salary,fill=rank)) + geom_density(alpha=0.3) + labs(x="Salary",y="Kernel estimate",fill="Rank")
+gg4 <- ggplot(Salaries,
+              aes(x=salary,
+                  fill=rank)) + 
+      geom_density(alpha=0.3) + 
+      labs(x="Salary",
+           y="Kernel estimate",
+           fill="Rank")
 gg4
+
 #(g)
 grid.arrange(gg1,gg2,gg3,gg4)
+
 #(h)
 ##(i)
-ggplot(Salaries,aes(x=salary,fill=sex)) + geom_density(alpha=0.7) + facet_wrap(~rank) + labs(x="Salary",y="Kernel estimate",fill="Sex")
+ggplot(Salaries,
+       aes(x=salary,
+           fill=sex)) + 
+      geom_density(alpha=0.7) + 
+      facet_wrap(~rank) + 
+      labs(x="Salary",
+           y="Kernel estimate",
+           fill="Sex")
 ##(ii)
-ggplot(Salaries,aes(x=yrs.service,y=salary,col=sex)) + geom_point() + geom_smooth(method="lm") + facet_grid(discipline~rank,scales="free_x") + labs(x="Years of Service",y="Salary",col="Sex")
+ggplot(Salaries,
+       aes(x=yrs.service,
+           y=salary,
+           col=sex)) + 
+      geom_point() + 
+      geom_smooth(method="lm") + 
+      facet_grid(discipline~rank,
+                 scales="free_x") + 
+      labs(x="Years of Service",
+           y="Salary",
+           col="Sex")
 
 ##########
 ## 24.2 ##
@@ -162,8 +241,19 @@ library("ggvis")
 library("car")
 ?Salaries
 #(a)
-salfill <- input_radiobuttons(c("Rank"="rank","Discipline"="discipline","Sex"="sex"),map=as.name,label="Color points by...")
-Salaries %>% ggvis(x=~yrs.service,y=~salary,fill=salfill) %>% layer_points() %>% add_legend("fill",title="") %>% add_axis("x",title="Years of service") %>% add_axis("y",title="Salary")
+salfill <- input_radiobuttons(c("Rank"="rank",
+                                "Discipline"="discipline",
+                                "Sex"="sex"),
+                              map=as.name,
+                              label="Color points by...")
+Salaries %>% 
+      ggvis(x=~yrs.service,
+            y=~salary,
+            fill=salfill) %>% 
+      layer_points() %>% 
+      add_legend("fill",title="") %>% 
+      add_axis("x",title="Years of service") %>% 
+      add_axis("y",title="Salary")
 #(b)
 ##(i)
 Salaries %>% ggvis(x=~salary,fill=~rank) %>% group_by(rank) %>% layer_densities()
