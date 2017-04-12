@@ -317,10 +317,22 @@ nvals <- 51
 vals <- seq(-3,3,length=nvals)
 normvals <- dnorm(vals)
 #(j)
-plot(vals,normvals,type="l",xaxs="i",yaxs="i",xlab="",ylab="",bty="L",xaxt="n",main="N(0,1) density")
+plot(vals,
+     normvals,
+     type="l",
+     xaxs="i",
+     yaxs="i",
+     xlab="",
+     ylab="",
+     bty="L",
+     xaxt="n",
+     main="N(0,1) density")
 #(k)
 for(i in 1:(nvals-1)){
-  polygon(x=rep(vals[c(i,i+1)],each=2),y=c(0,normvals[c(i,i+1)],0),border=NA,col=fillcols[i])
+  polygon(x=rep(vals[c(i,i+1)],each=2),
+          y=c(0,normvals[c(i,i+1)],0),
+          border=NA,
+          col=fillcols[i])
 }
 #(l)
 library("shape")
