@@ -417,7 +417,20 @@ contour(x=capseq,y=datseq,z=nuc.pred1)
 contour(x=capseq,y=datseq,z=nuc.pred2)
 # The two response surfaces appear extremely similar, with only a slight curvature appearing in the surface associated with the interactive model. This similarity is to be expected based on the model summaries from (a), which don't provide any evidence supporting the need to include the interaction.
 #(d)
-filled.contour(x=capseq,y=datseq,z=nuc.pred1,xlab="Capacity",ylab="Permit date",color.palette=topo.colors,plot.axes={axis(1);axis(2);contour(capseq,datseq,nuc.pred2,add=TRUE,lwd=2,lty=2)})
+filled.contour(x=capseq,
+               y=datseq,
+               z=nuc.pred1,
+               xlab="Capacity",
+               ylab="Permit date",
+               color.palette=topo.colors,
+               plot.axes={axis(1);
+                     axis(2);
+                     contour(capseq,
+                             datseq,
+                             nuc.pred2,
+                             add=TRUE,
+                             lwd=2,
+                             lty=2)})
 text(locator(1),label=c("Color fill: Main effects only.\nLines: Interaction included."),xpd=NA)
 #(e)
 ?faithful
