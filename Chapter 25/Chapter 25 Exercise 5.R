@@ -169,71 +169,79 @@ colorlegend(tcols,
             main.cex = 0.8,
             posx=c(0.9,0.91),posy=c(0.1,0.9))
 
-#e
-install.packages("spatstat")
+#(e)
 library("spatstat")
-#Subset the Data Frame
-fire<-split(clmfires)$intentional 
-#gets the window frame
-fire.WIN<-fire$window 
-#gets the x range of the Window frame
-fire.WINxr<-fire.WIN$xrange 
-#gets the y range of the window frame
-fire.WINyr<-fire.WIN$yrange 
-#'create the KDE map based on the original data and max limit of the 
-#'win frame. This way, we guarantee all the map will be in the plot
-fire.dens.WIN<-kde2d(fire$x,fire$y,n=256, 
-                     lims=c(fire.WINxr,fire.WINyr))
-#create all coordinates of the xy 
-fire.xy<-expand.grid(fire.dens.WIN$x, 
-                     fire.dens.WIN$y)
-#check if the points of the map are inside or outside the map.
-fire.out.mat<-matrix(!inside.owin(x=fire.xy[,1], 
-                                  y=fire.xy[,2],
-                                  w=fire.WIN),
-                     256,256)
-#Change the density items outside the map to NA, so they become blanks
-# on the PLOT
-fire.dens.WIN$z[chor.out.mat]<-NA
-#Just rename the density dataframe to ZM
-zm<-fire.dens.WIN$z
-#Transform the zm in a Zfacet for use with Colors
-zf<-(zm[-1,-1]+
-           zm[-1,-ncol(zm)]+
-           zm[-nrow(zm),-1]+
-           zm[-nrow(zm),-ncol(zm)])/4
-#Define the color range to be used
-hcol<-heat.colors(50)
-#Define the braks to categorize the density values with colors
-zf.breaks<-seq(min(zf,na.rm=TRUE),
-               max(zf,na.rm=TRUE),
-               length=51)
-#create a vector of colors density categorized
-firecols<-hcol[cut(zf,breaks=zf.breaks,include.lowest = T)]
+library("MASS")
+fire <- split(clmfires)$intentional #obtain the ppp object
+firewin <- fire$window #obtain the Window info from PPP
 
-
-persp(x=fire.dens.WIN$x,
-      y=fire.dens.WIN$y,
-      z=fire.dens.WIN$z,
+#obtain the xrange and yrange of window in order to define the real 
+#desired size of the plot.
+firewin.xr <- firewin$xrange 
+firewin.yr <- firewin$yrange
+#'Define the KDE2d of the original ppp$x and ppp$y, use the limits 
+#'from the window
+fire.dens <- kde2d(x=fire$x, 
+                   fire$y,n=256,
+                   lims=c(firewin.xr,firewin.yr))
+#'With the density matrix, use the expand.grid with density matrix from 
+#'kde2d to have a table with all possible xy positions.
+fire.xy <- expand.grid(fire.dens$x,
+                       fire.dens$y)
+#'Use !inside.owin() with expanded grid positions and the window polygon
+#'to check if the position is inside the map or not. If is outside, make it 
+#'an NA. 
+fire.outside <- !inside.owin(x=fire.xy[,1],
+                             y=fire.xy[,2],
+                             w=firewin)
+fire.dens$z[fire.outside] <- NA
+#'Make the facet matrix by summing the 4 matrix and dived by 4
+fm <- (fire.dens$z[-1,-1]+
+             fire.dens$z[-1,-256]+
+             fire.dens$z[-256,-1]+
+             fire.dens$z[-256,-256])/4
+#define the colors being it 50 in this case
+hcols <- heat.colors(50)
+#'Define the vector of colors for the data by selecting the colors palette
+#'by a cutted version of the facet matrix
+firecols <- hcols[cut(fm,
+                      breaks=seq(min(fm,
+                                     na.rm=TRUE),
+                                 max(fm,na.rm=TRUE),
+                                 length=51),
+                      include.lowest=TRUE)]
+#Create the Perspective plot with (Persp) by giving the kde2d to x,y and z
+#sometimes, you'll need to expand= it.
+persp(fire.dens$x,
+      fire.dens$y,
+      fire.dens$z,
       col=firecols,
-      border = NA,
-      phi=30, theta=10,
-      xlab="X", ylab="Y",zlab="Z",
-      main = "Intentional Fires Density",
-      scale = F,
-      expand = 5e+6,
-      ticktype = "detailed")
+      theta=10,
+      phi=30,
+      border=NA,
+      scale=FALSE,
+      expand=5e+6,
+      ticktype="detailed",
+      xlab="X",ylab="Y",zlab="Z")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+#f
+persprot<-function(skip=1,...){
+      for(i in seq(90,20,by=-skip)){
+            persp(phi=i,theta=0,...)
+      }
+      for(i in seq(0,360,by=skip)){
+            persp(pho=20,theta=i,...)
+      }
+}
+dev.new()
+persprot(skip=10,
+      x=fire.dens$x,
+      y=fire.dens$y,
+      z=fire.dens$z,
+      col=firecols,
+      border=NA,
+      scale=FALSE,
+      expand=5e+6,
+      ticktype="detailed",
+      xlab="X",ylab="Y",zlab="Z")
