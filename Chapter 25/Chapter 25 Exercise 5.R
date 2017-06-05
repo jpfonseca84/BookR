@@ -235,7 +235,7 @@ persprot<-function(skip=1,...){
       }
 }
 dev.new()
-persprot(skip=10,
+persp(skip=10,
       x=fire.dens$x,
       y=fire.dens$y,
       z=fire.dens$z,
